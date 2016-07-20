@@ -266,4 +266,4 @@ Chart(document.getElementById("canvas").getContext("2d")).Line(lineChartData);
 ```
 The lineChartData, that was established in the drawCanvas function, is then used within the Chart.js library to place all 24 data points received from the HourAvg table on a line graph.
 
-![Alt text](/screenshot3.JPG?raw=true "Screenshot #5: Graph")
+![Alt text](/screenshot5.JPG?raw=true "Screenshot #5: Graph")
