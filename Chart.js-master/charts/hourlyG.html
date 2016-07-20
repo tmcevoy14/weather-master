@@ -1,0 +1,290 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.5, user-scalable=yes">
+
+<script src="local-notification.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="js/kickstart.js"></script> <!-- KICKSTART -->
+<link rel="stylesheet" href="style.css" media="all" />
+<link rel="stylesheet" href="css/kickstart.css" media="all" />
+<link rel="stylesheet" href="css/kickstart-menus.css" media="all" />
+<link rel="stylesheet" href="css/kickstart-buttons.css" media="all" />
+<link rel="stylesheet" href="css/kickstart-forms.css" media="all" /> 
+<link rel="stylesheet" href="css/kickstart-grid.css" media="all" />
+<link rel="stylesheet" href="css/kickstart-slideshow.css" media="all" />
+<link rel="stylesheet" href="css/prettify.css" media="all" />
+<link rel="stylesheet" href="css/tiptip.css" media="all" />
+<link rel="stylesheet" href="css/jquery.fancybox-1.3.4.css" media="all" />
+
+<!--Include the Chart.js library on the page. This library occupies a global variable of Chart-->
+		<script src="../Chart.js"></script>
+        
+<script src="../../js/startMethods.js"></script>
+
+<!--<script src="js/changeBackground.js"></script>-->
+
+<!--JQUERY PLUGIN-->
+<link type="text/css" rel="stylesheet" href="../../jQuery.mmenu-master/demo/demo2.css">
+<link type="text/css" rel="stylesheet" href="../../jQuery.mmenu-master/src/css/jquery.mmenu.css">
+<link type="text/css" rel="stylesheet" href="../../jQuery.mmenu-master/src/css/extensions/jquery.mmenu.positioning.css">
+
+<style type="text/css" media="all">
+			input[type="radio"]:disabled + label
+			{
+				opacity: 0.5;
+			}
+		</style>
+<script type="text/javascript" src="../../js/globalVariables.js"></script>   
+<script type="text/javascript" src="../../js/notificationAlerts.js"></script>     
+  
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript" src="../../jQuery.mmenu-master/src/js/jquery.mmenu.js"></script>
+<script type="text/javascript">
+<!--JQUERY PLUGIN END-->
+			
+			<!--JQuery Function that sets the positioning of the page do not remove-->
+			$(function() {
+
+				var pos 	= 'mm-top mm-right mm-bottom',
+					zpos	= 'mm-front mm-next';
+
+				var $html 	= $('html'),
+					$menu	= $('nav#menu'),
+					$both	= $html.add( $menu );
+					
+				var $inp	= $('input[name="pos"]'),
+					$inz	= $('input[name="zpos"]'),
+					$inb	= $inz.filter( '[value="back"], [value="next"]' ),
+					$inf	= $inz.filter( '[value="front"]' );
+
+				$menu.mmenu();
+
+				$inp.change(function() {
+					var v = $(this).val();
+					if ( v == 'top' || v == 'bottom' )
+					{
+						$inb.prop( 'disabled', true );
+						$inf.prop( 'checked', true );
+					}
+					else
+					{
+						$inb.prop( 'disabled', false );
+					}
+				});
+
+				//	Add the position-classnames onChange
+				$inp.change(function() {
+					$both.removeClass( pos ).addClass( 'mm-' + this.value );
+				});
+				$inz.change(function() {
+					$both.removeClass( zpos ).addClass( 'mm-' + this.value );
+				});
+				
+				$inp.filter( ':checked' ).change();
+			});
+		</script>
+        
+        
+        
+        <script type="text/javascript">
+		
+		var dataPoints=new Array();
+		//28,48,40,19,96,27,100
+		var dataLabels=new Array();
+		
+		var daylabels=new Array();
+		daylabels[0]="12 am";
+		daylabels[1]="";
+		daylabels[2]="2 am";
+		daylabels[3]="";
+		daylabels[4]="4 am";
+		daylabels[5]="";
+		daylabels[6]="6 am";
+		daylabels[7]="";
+		daylabels[8]="8 am";
+		daylabels[9]="";
+		daylabels[10]="10 am";
+		daylabels[11]="";
+		daylabels[12]="12 pm";
+		daylabels[13]="";
+		daylabels[14]="2 pm";
+		daylabels[15]="";
+		daylabels[16]="4 pm";
+		daylabels[17]="";
+		daylabels[18]="6 pm";
+		daylabels[19]="";
+		daylabels[20]="8 pm";
+		daylabels[21]="";
+		daylabels[22]="10 pm";
+		daylabels[23];
+		
+		
+		
+		
+		//["January","February","March","April","May","June","July"]
+
+		var request;
+		var weatherData;
+		var dataArray;
+		var temp;
+		
+		var rain;
+
+		var txtTemp;
+		var txtRain;
+		var txtPressure;
+		var textWindSpeed;
+		var txtWindDirection;
+		var txtRelHumidity;
+		var txtGust;
+		var txtSol;
+		
+		var maxscore;
+		
+		var allData;
+		
+		var isRaining;
+				
+		function getTemp(){
+			var t=temp;
+			return t;
+		}
+
+		
+		
+		function getHourAvg(){
+			
+			
+			request = new XMLHttpRequest();
+			request.onreadystatechange = change;
+			request.open("GET", "http://140.203.204.104:8706/hourAve.txt", true);
+		
+			request.send(null);
+		}
+		
+		function change(){
+			if (request.readyState == 4 && request.status == 200){
+				
+				
+				hourAve = request.responseText;
+				
+				
+				jsObject=JSON.parse(hourAve);
+				
+				for(var i=0;i<23;i++){
+					dataPoints[i]=jsObject[i].GustAve;
+					var obj=jsObject[i].Time.split(/[\.:\T]/);
+								
+					
+					if (i%2==0){
+						dataLabels[i]=obj[1]+":"+obj[2];
+					}
+					else{
+						dataLabels[i]=" ";
+					}
+				}
+				
+				drawCanvas();
+				
+				//temp = jsObject["Temp"];
+				//document.getElementById('txtHistory').innerHTML=hisBar;
+				//setTimeout("getHistory()", 10000); 
+			}
+		}
+
+		function startPage(){
+			document.body.style.backgroundColor=localStorage.backgroundColor;
+			getHourAvg();
+		}
+		
+		</script>
+</head>
+<body onLoad="startPage()">
+<div id="page" width="550px">
+			<div id="header">
+				<a href="#menu"></a>
+			</div>
+			<div id="content" style="position:absolute">
+				<h1 align="center">Average Hourly Gust</h1>
+             		<style>
+					canvas{
+						position: absolute;
+					}
+					</style>
+                     <p align="center">
+                     <canvas id="canvas" width="500px" height="210px" style="position:absolute;"></canvas> <!--position:fixed works every time!-->
+	<script>
+	function drawCanvas(){
+		
+		//canvas.width = window.height;
+		//canvas.height=window.height;
+		
+		//can.width=2000;
+		
+		var lineChartData = {
+			//the line chart requires an array of labels for each of the data points
+			//this is shown on the x axis of the chart//
+			labels : dataLabels,
+			
+			//the data for line charts is broken up into an array of datasets
+			//each dataset has a colour for the fill, the line, and the points
+			datasets : [
+						
+				//{
+					
+					//fillColor : "rgba(220,220,220,0.5)",
+					//strokeColor : "rgba(220,220,220,1)",
+					//pointColor : "rgba(220,220,220,1)",
+					//pointStrokeColor : "#fff",
+					
+					//data : [65,59,90,81,56,55,40] <!--call a JavaScript function to get the array of data-->
+				//},
+				
+				
+				{
+					
+					fillColor : "rgba(151,187,205,0.5)",
+					strokeColor : "rgba(151,187,205,1)",
+					pointColor : "rgba(151,187,205,1)",
+					pointStrokeColor : "#fff",
+					
+					
+					data: dataPoints
+				}
+			]
+			
+		}
+
+	//Call a method of the name of the chart to create, then pass in the data for that chart type
+	var myLine = new Chart(document.getElementById("canvas").getContext("2d")).Line(lineChartData);
+	
+	//var context=document.getElementById("canvas").getContext('2d');
+	//context.translate(300,(canvas.height/200));
+	//context.rotate(90*(Math.PI/180));
+	
+	
+	
+	//context.height=1000;
+	
+	//document.getElementById("canvas").width=200;
+	}
+	</script>
+	<p></p>
+				<br />
+				<!--<p><a href="#menu">Open the menu &raquo;</a></p>-->
+			</div>
+			<nav id="menu"> <!--DO NOT CHANGE-THIS IS THE MENU-->
+				<ul>
+					<li><a href="../../index.html">Live</a></li>
+					<li><a href="../../trends.html">Trends</a></li>
+					<li><a href="../../more.html">Notifications</a></li>
+				</ul>
+			</nav>
+		</div>
+	</body>
+
+</html>

@@ -1,0 +1,361 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Line Chart</title>
+        <!--Include the Chart.js library on the page. This library occupies a global variable of Chart-->
+		<script src="../Chart.js"></script>
+        <script src="js/startMethods.js"></script>
+        <!-- STYLE SHEETS -->
+        <link rel="stylesheet" href="../../style.css" media="all" />
+        <link rel="stylesheet" href="../../css/kickstart.css" media="all" />
+		<link rel="stylesheet" href="../../css/kickstart-menus.css" media="all" />
+		<link rel="stylesheet" href="../../css/css/kickstart-buttons.css" media="all" />
+		<link rel="stylesheet" href="../../css/css/kickstart-forms.css" media="all" /> 
+		<link rel="stylesheet" href="../../css/css/kickstart-grid.css" media="all" />
+		<link rel="stylesheet" href="../../css/css/kickstart-slideshow.css" media="all" />
+		<link rel="stylesheet" href="../../css/css/prettify.css" media="all" />
+		<link rel="stylesheet" href="../../css/css/tiptip.css" media="all" />
+		<link rel="stylesheet" href="../../css/css/jquery.fancybox-1.3.4.css" media="all" />
+		<!-- KICKSTART -->
+		<meta name = "viewport" content = "initial-scale = 1, user-scalable = no">
+        
+		<style>
+			canvas{
+				float:left;
+			}
+		</style>
+        
+        <script type="text/javascript">
+		
+		var dataPoints=new Array();
+		//28,48,40,19,96,27,100
+		dataPoints[0]=50;
+		dataPoints[1]=60;
+		dataPoints[2]=70;
+		dataPoints[3]=50;
+		dataPoints[4]=60;
+		dataPoints[5]=70;
+		dataPoints[6]=50;
+		
+		var daylabels=new Array();
+		daylabels[0]="Sunday";
+		daylabels[1]="Monday";
+		daylabels[2]="Tuesday";
+		daylabels[3]="Wednesday";
+		daylabels[4]="Thursday";
+		daylabels[5]="Friday";
+		daylabels[6]="Saturday";
+		
+		//["January","February","March","April","May","June","July"]
+		
+        var images = [],
+		x = 0;
+
+		images[0] = "image.jpeg";
+		images[1] = "sunny.png";
+		images[2] = "rain.png";
+
+		var request;
+		var weatherData;
+		var dataArray;
+		var temp;
+		
+		var rain;
+
+		var txtTemp;
+		var txtRain;
+		var txtPressure;
+		var textWindSpeed;
+		var txtWindDirection;
+		var txtRelHumidity;
+		var txtGust;
+		var txtSol;
+		
+		var maxscore;
+		
+		var allData;
+		
+		var isRaining;
+		
+		//function startTime()
+		//{
+		//	var today=new Date();
+		//	var h=today.getHours();
+		//	var m=today.getMinutes();
+		//	var s=today.getSeconds();
+			//add a zero in front of numbers less than 10
+		//	m=checkTime(m);
+		//	s=checkTime(s);
+		//	document.getElementById("clock").innerHTML=h+":"+m+":"+s;
+		//	t=setTimeout(function(){startTime()},500);
+		//	changeImage();
+		//}
+
+		//function checkTime(i)
+		//{
+			//if (i<10)
+  			//{
+  			//	i="0" + i;
+  			//}
+		//return i;
+		//}
+		
+	
+	//function backgroundOvercast(){
+     //document.body.style.backgroundColor = "#AAAAAA";
+	//}
+
+		//function checkRain(rain){
+			
+			//var isRaining=rain;
+			
+			//if (isRaining>0){
+			//	var img=document.getElementById("img");
+			//	img.src=images[2];
+			//	document.body.style.backgroundColor="#2999B7";
+			//}
+			
+			//if(isRaining==0){
+			//	var img=document.getElementById("img");
+				//img.src=images[1];
+				//document.body.style.backgroundColor = "#E5C851";
+			//}
+			
+			<!--Call appropriate function to dynamically set the background color based on weather-->
+			//functionBackgroundRaining();
+				
+	//	}
+		
+		//function changeImage()
+		//{
+    		//var img = document.getElementById("img");
+    		//img.src = images[x];
+    		//x++;
+
+    		//if(x >= images.length){
+        	//x = 0;
+    		//} 
+
+    	//fadeImg(img, 300, true);
+    		//setTimeout("changeImage()", 30000);
+		//}
+
+		function fadeImg(el, val, fade){
+    		if(fade === true){
+       			 val--;
+    		}else{
+       			 val ++;
+    		}
+
+    		if(val > 0 && val < 100){
+        		el.style.opacity = val / 100;
+        		setTimeout(function(){fadeImg(el, val, fade);}, 10);
+    		}
+		}
+
+		
+setTimeout("changeImage()", 400000);
+
+		//function getWeatherData(){
+			
+			//request = new XMLHttpRequest();
+			//request.onreadystatechange = statechange;
+			//request.open("GET","http://weather.nuigalway.ie/getLiveData.php",true);
+			//request.send(null);
+
+			//checkRain(28)
+			
+		//}
+		
+		function getTemp(){
+			var t=temp;
+			return t;
+		}
+		
+		
+		//function getWeatherData(){
+			
+			//request = new XMLHttpRequest();
+			//request.onreadystatechange = statechange;
+			//request.open("GET", "http://140.203.204.104:8702/hello.txt", true);
+			//request.open("GET", "http://weather.nuigalway.ie/getLiveData.php", true);
+			//<!--request.open("GET","http://danu6.it.nuigalway.ie/mikelyons/trans.js", true)-->
+			//request.send(null);
+			
+			//checkRain(28)
+			
+			//setTweet()
+			
+			
+		//}
+		function getHourly(){
+			
+			
+			daylabels[0]="12 am";
+			daylabels[1]="5 am";
+			daylabels[2]="9 am";
+			daylabels[3]="12 pm";
+			daylabels[4]="3 pm";
+			daylabels[5]="6 pm";
+			daylabels[6]="10 pm";
+			drawCanvas()
+		}
+		
+		function getDaily(){
+			daylabels[0]="Sunday";
+			daylabels[1]="Monday";
+			daylabels[2]="Tuesday";
+			daylabels[3]="Wednesday";
+			daylabels[4]="Thursday";
+			daylabels[5]="Friday";
+			daylabels[6]="Saturday";
+			drawCanvas()
+		}
+		
+		function getMonthly(){
+			daylabels[0]="January";
+			daylabels[1]="February";
+			daylabels[2]="March";
+			daylabels[3]="April";
+			daylabels[4]="May";
+			daylabels[5]="June";
+			daylabels[6]="July";
+			drawCanvas()
+		}
+		
+		function getHistory(){
+			alert("getHistory() called");
+			
+			bar = document.getElementById('inputUser').value;
+			request = new XMLHttpRequest();
+			request.onreadystatechange = change;
+			request.open("GET", "http://140.203.204.104:8702/history.txt?value=" + bar, true);
+		
+			request.send(null);
+			
+		
+		}
+		
+		function change(){
+			if (request.readyState == 4 && request.status == 200){
+				history = request.responseText;
+				jsBar = JSON.parse(history);
+								
+				hisBar = jsBar["gust"];
+				document.getElementById('txtHistory').innerHTML=hisBar;
+				setTimeout("getHistory()", 10000); 
+			}
+		}
+		
+		//function statechange(){
+		//	if (request.readyState == 4 && request.status == 200){
+			//	weatherData = request.responseText;
+			//	jsObject = JSON.parse(weatherData);
+								
+			//	temp = jsObject["Temp"];
+				
+				
+				//rains= jsObject["upDateMinute"];
+			//	timeDate = new Date(jsObject["upDateMinute"]);
+			//	timeString = timeDate.toString();
+				
+			//	mytime = timeString.split("GMT");
+			//	time = mytime[0];
+				//rain= time.getDate() time.getHours() + ":" + time.getMinutes();
+			//	rain = Date.prototype.toDateString(jsObject["upDateMinute"]);
+			//	rain = new Date(jsObject["upDateMinute"]);
+			//	rain = new Date( rains.getTime() );
+			//	pressure=jsObject["Barometer"];
+			//	windSpeed=jsObject["windSpeed"];
+			//	windDirection=jsObject["WindDirection"];
+			//	relHumidity=jsObject["Humidity"];
+			//	gust = jsObject["gust"];
+			//	solar=jsObject["totalSolar"];
+				
+			//	document.getElementById('txtTemp').innerHTML = temp;
+			//	document.getElementById('txtRain').innerHTML=rain;
+			//	document.getElementById('txtPressure').innerHTML=pressure;
+			//	document.getElementById('txtWindSpeed').innerHTML=windSpeed;
+			//	document.getElementById('txtWindDirection').innerHTML=windDirection;
+			//	document.getElementById('txtRelHumidity').innerHTML=relHumidity;
+			//	document.getElementById('txtGust').innerHTML=gust;
+			//	document.getElementById('txtSol').innerHTML=solar;
+			//	document.getElementById('txtTime').innerHTML=time;
+				
+			//	updateTweet(3);
+				
+				//getHistory();
+			//	setTimeout("getWeatherData()", 10000); 
+			
+				
+		//	}
+		
+		
+	//	}
+	//	function printTemp(){
+
+		//}
+		
+		
+		</script>
+	</head>
+    <h1>Graph</h1><br>
+    <p align="center"><input type="button" name="button1" value="Hourly" onClick="getHourly()"><input type="button" name="button1" value="Daily" onClick="getDaily()"><input type="button" name="button1" value="Monthly" onClick="getMonthly()"></p>
+    <body onLoad="getWeatherData()">
+    <pre>
+    
+    <!--Create a chart by instantiating the Chart class-->
+		<canvas id="canvas" style="position:fixed"></canvas>
+
+
+	<script>
+	function drawCanvas(){
+		//canvas.width = canvas.width;
+		
+		var lineChartData = {
+			//the line chart requires an array of labels for each of the data points
+			//this is shown on the x axis of the chart//
+			labels : daylabels,
+			
+			//the data for line charts is broken up into an array of datasets
+			//each dataset has a colour for the fill, the line, and the points
+			datasets : [
+						<!--Set one-->
+				//{
+					<!--colour of each dataset-->
+					//fillColor : "rgba(220,220,220,0.5)",
+					//strokeColor : "rgba(220,220,220,1)",
+					//pointColor : "rgba(220,220,220,1)",
+					//pointStrokeColor : "#fff",
+					
+					//data : [65,59,90,81,56,55,40] <!--call a JavaScript function to get the array of data-->
+				//},
+				
+				<!--set two-->
+				{
+					<!--colour of each dataset-->
+					fillColor : "rgba(151,187,205,0.5)",
+					strokeColor : "rgba(151,187,205,1)",
+					pointColor : "rgba(151,187,205,1)",
+					pointStrokeColor : "#fff",
+					
+					<!--data : [28,48,40,19,96,27,100]--> <!--call a JavaScript function to get the array of data-->
+					data: dataPoints
+				}
+			]
+			
+		}
+
+	//Call a method of the name of the chart to create, then pass in the data for that chart type
+	var myLine = new Chart(document.getElementById("canvas").getContext("2d")).Line(lineChartData);
+	}
+	</script>
+    </pre>
+      	<!-- Menu Horizontal -->
+<ul style="text-align:center;bottom:0; margin:0;" class="menu">
+<li><a href="../../index.html">Live</a></li>
+<li class="current"><a href="../../trends.html">Trends</a></li>
+<li><a href="../../more.html"><i class="icon-inbox"></i> More</a></li>
+</ul>
+	</body>
+</html>
