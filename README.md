@@ -1,21 +1,13 @@
 # weather-master
 A cross platform weather application built using PhoneGap
 
-Screenshot
+Software Screenshots
 
-Screenshot software
+![Alt text](/screenshot1.JPG?raw=true "Screenshot #1: Warm Weather")
+![Alt text](/screenshot2.JPG?raw=true "Screenshot #2: Cold Weather")
+![Alt text](/screenshot3.JPG?raw=true "Screenshot #3: Night Time")
 
-
-Contributors
-
-Contributors on GitHub
-
-Contributors
-Translations
-
-Transifex
 Third party libraries
-
-see LIBRARIES files
-
+Chart.js
+jQuery-mmenu
 
