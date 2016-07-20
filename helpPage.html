@@ -1,0 +1,152 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script src="local-notification.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="js/kickstart.js"></script> <!-- KICKSTART -->
+<link rel="stylesheet" href="style.css" media="all" />
+<link rel="stylesheet" href="css/kickstart.css" media="all" />
+<link rel="stylesheet" href="css/kickstart-menus.css" media="all" />
+<link rel="stylesheet" href="css/kickstart-buttons.css" media="all" />
+<link rel="stylesheet" href="css/kickstart-forms.css" media="all" /> 
+<link rel="stylesheet" href="css/kickstart-grid.css" media="all" />
+<link rel="stylesheet" href="css/kickstart-slideshow.css" media="all" />
+<link rel="stylesheet" href="css/prettify.css" media="all" />
+<link rel="stylesheet" href="css/tiptip.css" media="all" />
+<link rel="stylesheet" href="css/jquery.fancybox-1.3.4.css" media="all" />
+
+<!--<script src="js/changeBackground.js"></script>-->
+
+<!--JQUERY PLUGIN-->
+<link type="text/css" rel="stylesheet" href="jQuery.mmenu-master/demo/demo.css">
+<link type="text/css" rel="stylesheet" href="jQuery.mmenu-master/src/css/jquery.mmenu.css">
+<link type="text/css" rel="stylesheet" href="jQuery.mmenu-master/src/css/extensions/jquery.mmenu.positioning.css">
+<style type="text/css" media="all">
+			input[type="radio"]:disabled + label
+			{
+				opacity: 0.5;
+			}
+		</style>
+<script type="text/javascript" src="js/globalVariables.js"></script>   
+<script type="text/javascript" src="js/notificationAlerts.js"></script>     
+  
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript" src="jQuery.mmenu-master/src/js/jquery.mmenu.js"></script>
+<script type="text/javascript">
+<!--JQUERY PLUGIN END-->
+			
+			<!--JQuery Function that sets the positioning of the page do not remove-->
+			$(function() {
+
+				var pos 	= 'mm-top mm-right mm-bottom',
+					zpos	= 'mm-front mm-next';
+
+				var $html 	= $('html'),
+					$menu	= $('nav#menu'),
+					$both	= $html.add( $menu );
+					
+				var $inp	= $('input[name="pos"]'),
+					$inz	= $('input[name="zpos"]'),
+					$inb	= $inz.filter( '[value="back"], [value="next"]' ),
+					$inf	= $inz.filter( '[value="front"]' );
+
+				$menu.mmenu();
+
+				$inp.change(function() {
+					var v = $(this).val();
+					if ( v == 'top' || v == 'bottom' )
+					{
+						$inb.prop( 'disabled', true );
+						$inf.prop( 'checked', true );
+					}
+					else
+					{
+						$inb.prop( 'disabled', false );
+					}
+				});
+
+				//	Add the position-classnames onChange
+				$inp.change(function() {
+					$both.removeClass( pos ).addClass( 'mm-' + this.value );
+				});
+				$inz.change(function() {
+					$both.removeClass( zpos ).addClass( 'mm-' + this.value );
+				});
+				
+				$inp.filter( ':checked' ).change();
+			});
+		</script>
+
+	<script type="text/javascript">
+	
+		
+		function startPage(){
+			document.body.style.backgroundColor=localStorage.backgroundColor;
+			
+			document.getElementById("tabc1").style.backgroundColor=localStorage.backgroundColor;
+			document.getElementById("tabc2").style.backgroundColor=localStorage.backgroundColor;
+			document.getElementById("tabc3").style.backgroundColor=localStorage.backgroundColor;
+			document.getElementById("tabc4").style.backgroundColor=localStorage.backgroundColor;	
+		}
+	</script>
+
+</head>
+<body onLoad="startPage()">
+<div id="page">
+			<div id="header">
+				<a href="#menu"></a>
+				NUIG Weather
+			</div>
+			<div id="content">
+				
+			<p class="center">Browse through each of the notifications to see what they do!</p>
+				<!-- Tabs Center -->
+			<ul class="tabs center">
+			<li><a href="#tabc1">Rain</a></li>
+			<li><a href="#tabc2">Wind</a></li>
+			<li><a href="#tabc3">Temp</a></li>
+			<li><a href="#tabc4">Pressure</a></li>
+			</ul>
+
+			<div id="tabc1" class="tab-content" style="background-color:#2999B7;">If you're like most people and don't like being stranded in the rain, turn this
+				notification on to be alerted as soon as a shower starts! Simply press press the button to turn the notification on. 
+				If you have a specific amount of rain that you want to be notified about, you can enter an amount of rain in mm into
+				the input box. If the hourly rain goes above that amount, you will be alerted. </div>
+			<div id="tabc2" class="tab-content">Wind notifications will alert you as soon as the wind goes above a given speed. Even 
+				if you're not a wind surfer it's always good to be aware! Simply press the button to turn the notification on. 
+				If you have a specific wind speed that you want to be notified about, you can the value into
+				the input box. You will be alerted as soon as the wind goes above that value!</div>
+			<div id="tabc3" class="tab-content">No need to worry about being cold anymore, the temperature notifications will alert you as soon as the temperature drops below or rises above a specific temperature.
+				Because all people have a different sense of warm and cold, make sure to enter your own temperature value to be alerted when you should bring a jacket
+				with you! Simply enter a number into the input box and press the button to turn these notifications on.<br><br>
+				If you want to be notified when the current temperature goes above a certain level then input your value in the High Temp box. <br><br>
+				If you want to be notified when the current temperature goes below a certain level then input your value in the Low Temp box.</div>
+			<div id="tabc4" class="tab-content">Barometric Pressure readings can be used to help you predict the future weather! Dropping pressure can indicate a
+				clearing sky, and a rising pressure can indicate rain. Turn this notification on to be alerted of significant drops in pressure! 
+				<br><br>If you want a more specific notification you can enter your own values into both input boxes.<br><br>
+				Time Range: represents how many hours ago that you want to compare the pressure to. <br><br>
+				Drop Range: represents how much of a drop you want to be notified about. <br><br>
+				So, if you input 3 into Time Range and 5 into Drop Range, you will be notified if the pressure has dropped by 
+				5 mBar in the past 3 hours!  </div>
+					
+				
+				</div>
+				<br />
+				<!--<p><a href="#menu">Open the menu &raquo;</a></p>-->
+			</div>
+			<nav id="menu"> <!--DO NOT CHANGE-THIS IS THE MENU-->
+				<ul>
+					<li><a href="index.html">Live</a></li>
+					<li><a href="trends.html">Trends</a></li>
+					<li><a href="more.html">Notifications</a></li>
+				</ul>
+			</nav>
+		</div>
+	</body>
+
+</html>

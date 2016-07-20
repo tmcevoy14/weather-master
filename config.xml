@@ -1,0 +1,24 @@
+
+<widget xmlns="http://www.w3.org/ns/widgets" 
+		id="com.example.weather" version="0.0.1"
+		 xmlns:gap = "http://phonegap.com/ns/1.0">
+        <name>campus weather 2</name>
+        <description>
+            A weather app built using phone gap.
+        </description>
+        
+            
+        <icon src="shower1.png" />
+        <splash src="splash.png" />
+       
+		
+		<gap:plugin name="de.appplant.cordova.plugin.local-notification" version="0.7.0"/> <!--Changing version from 0.7.3 to 0.7.0 worked -->
+        <content src="index.html" />
+        <access origin="*" />
+        <preference name="Orientation" value="default" />
+        <preference name="Fullscreen" value="true" />
+        <preference name="WebViewBounce" value="false" />
+        <preference name="UIWebViewBounce" value="false" />
+		<preference name="DisallowOverscroll" value="true" />
+		
+    </widget>
