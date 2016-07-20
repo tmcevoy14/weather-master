@@ -76,3 +76,37 @@ has changed by'+localStorage.bPressVar + “mBar!”});
 Once the window.plugin.notification.local.add method is executed, a local notification will be sent to
 the user's device even if the app is not running in the foreground. Thus allowing users to receive
 notifications on current weather conditions at all times.
+
+==========================
+##Posting Dynamically Generated Tweets
+Twitter offers a small widget that can be embedded inside a webpage and used to generate a pre-defined 'Tweet'.
+
+The Tweet Button was included in this application by adding a JavaScript and an HTML anchor to the page.
+```
+<a id="link1" href="http://twitter.com/share" class="twitter-share-button"
+data-text="The current temp in Galway is " data-via="Weather_NUIG">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)
+[0];if(d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=
+"https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}
+(document,"script","twitter-wjs");</script>
+```
+
+Unfortunately, using Twitters pre-defined script to add properties to the tweet does not allow for the content of a tweet to by dynamically generated via the webpage. This is because as soon as the page is loaded, the Twitter Widget generates the tweet. 
+
+In this case, when the tweet button is pressed, it cannot update the text to reflect the current weather conditions.
+In order to fix this problem and allow dynamic content to be added to the tweet, the Javascript function that sets the text of a tweet needs to be modified to the following: 
+```javascript
+<script type="text/javascript">
+tweetTemp=getTemp();//var maxscore=temp; //temp = jsObject["Temp"];
+var elem = document.getElementById("link1");
+elem.setAttribute("data-text", elem.getAttribute("data-text") +
+tweetTemp);
+</script>
+```
+This piece of Javascript gets the tweet button element, “link1”, and concatenates the current temperature to the existing data text. The only way to retrieve the live temperature was to call a function that explicitly retrieved the temperature.
+```javascript
+function getTemp(){
+var tweetTemp=localStorage.currentTemp;
+return tweetTemp;
+}
+```
