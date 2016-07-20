@@ -287,8 +287,8 @@
 		
 		function changeHistory(){
 			if (request.readyState == 4 && request.status == 200){
-				
-				hist = request.responseText;	
+
+				hist = request.responseText;
 				jsObject=JSON.parse(hist);
 				hisBar = jsObject["PressureAve"];
 
@@ -321,7 +321,7 @@
 
 				if(dhisBar-bPressure>localStorage.dbPressDrop){
 					window.plugin.notification.local.add({ message: 'B.Pressure has dropped more than '+localStorage.dbPressDrop+' !',,badge: 5,id: '5', });
-				}
+				};;
 			}
 			
 			return
@@ -373,10 +373,8 @@
 				
 				var sunsetMins=sstimeArray[1];
 				var sunsetMinsMilli=sunsetMins*60000;
-				
-				var sunsetCurrentMilli=sunsetHoursMilli+sunsetMinsMilli;
-				
-				sunset=sunsetCurrentMilli;
+
+				sunset=sunsetHoursMilli + sunsetMinsMilli;
 				
 				
 				srtimeArray=sr.split(":");
@@ -385,10 +383,8 @@
 				
 				var sunriseMins=srtimeArray[1];
 				var sunriseMinsMilli=sunriseMins*60000;
-				
-				var sunriseCurrentMilli=sunriseHoursMilli+sunriseMinsMilli;
-				
-				sunrise=sunriseCurrentMilli;
+
+				sunrise=sunriseHoursMilli + sunriseMinsMilli;
 				
 				
 				
@@ -445,7 +441,7 @@
 				var ti=currentTime.getHours();
 				
 				
-				checkRain(rain,temp,solar)				
+				checkRain(rain,temp,solar);
 				
 				document.getElementById('txtMaxTemp').innerHTML=localStorage.maxTemp;
 				document.getElementById('txtMinTemp').innerHTML=localStorage.minTemp;
@@ -643,10 +639,8 @@
 	
 		
 		
-		function getTemp(){ 	
-			var tweetTemp=localStorage.currentTemp;
-			
-			return tweetTemp;
+		function getTemp(){
+			return localStorage.currentTemp;
 		}
 	</script>
 	
